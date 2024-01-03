@@ -1,0 +1,33 @@
+<div id="authenticator">
+  <mat-card id="authenticator-content">
+    <mat-card-header>
+      <mat-card-title>{{ getStateText() }}</mat-card-title>
+    </mat-card-header>
+    <div *ngIf="isLoginState()">
+      <input #loginEmail placeholder="Email" type="email"/>
+      <input #loginPassword placeholder="Password" type="password"/>
+      <ngx-recaptcha2 #captchaElem [siteKey]="'6Le7NzcpAAAAAOR7vcvQh64TFPbXKnO7kNCCw34o'" (success)="onCaptchSuccess($event)"></ngx-recaptcha2>
+      <button (click)="onLoginClick(loginEmail,loginPassword)" mat-raised-button color="warn" [disabled]="!captchaVerified"> Login</button>
+    </div>
+    <div *ngIf="isSignUpState()">
+      <input #registerEmail placeholder="Email" type="email"/>
+      <input #registerPassword placeholder="Password" type="password"/>
+      <input #registerConfirmPassword placeholder="Confirm Password" type="password"/>
+      <ngx-recaptcha2 #captchaElem [siteKey]="'6Le7NzcpAAAAAOR7vcvQh64TFPbXKnO7kNCCw34o'" (success)="onCaptchSuccess($event)"></ngx-recaptcha2>
+      <button (click)="onSignUpClick(registerEmail,registerPassword,registerConfirmPassword)" mat-raised-button color="warn" [disabled]="!captchaVerified" > Sign Up</button>
+      <button mat-raised-button color="warn" (click)="onLogin()">Login</button>
+
+    </div>
+    <div *ngIf="isForgotPasswordState()">
+      <input #resetEmail placeholder="Email" type="email"/>
+      <ngx-recaptcha2 #captchaElem [siteKey]="'6Le7NzcpAAAAAOR7vcvQh64TFPbXKnO7kNCCw34o'" (success)="onCaptchSuccess($event)"></ngx-recaptcha2>
+      <button (click)="onForgotPasswordClick(resetEmail)" mat-raised-button color="warn"[disabled]="!captchaVerified"> Reset</button>
+      <button mat-raised-button color="warn" (click)="onLogin()" >Login</button>
+
+    </div>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="warn" (click)="onForgotPassword()">Forgot Password</button>
+      <button mat-raised-button color="warn" (click)="onSignUP()">Create an Account</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
